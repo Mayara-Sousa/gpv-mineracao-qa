@@ -93,7 +93,6 @@ def test_validar_conteudo_acoes_adicionar_equipamento(page :Page):
      with allure.step("validar conteudo tela adicionar equipamento"):
          OM01Page.validar_conteudo_acoes_adicionar_equipamento(page, "EM2501 Baixa precisão ")
 
-
 @pytest.mark.OM01
 def test_validar_editar_equipamento_cadastrado(page :Page):
     with allure.step("acessar tela OM01"):

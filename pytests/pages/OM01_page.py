@@ -1,4 +1,5 @@
 from pytests.support.screenshot_service import ScreenshotService
+from pytests.pages.OM02_page import OM02Page
 import time
 import os
 
@@ -398,8 +399,12 @@ class OM01Page:
         # aguardando em loop 1 segundo enquando o popup de loading page estiver visivel na tela
         while OM01Page.loading_page(page).is_visible():
             time.sleep(1)
+        
+        # ao apresentar erro de excessão não tratada na tela esse elemento foi mapeado para clicar no botão voltar 
+        if OM02Page.botao_voltar_excessao_tela(page).is_visible() == True:
+            OM02Page.botao_voltar_excessao_tela(page).click()
         ScreenshotService.take_screenshot(page)
-
+        
     # unico campo unidade operacional aparece visivel na tela 
     @staticmethod
     def validar_campos_visiveis(page):

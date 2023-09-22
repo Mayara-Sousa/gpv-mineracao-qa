@@ -182,17 +182,12 @@ class OM02Page:
         return page.get_by_role("button", name="Cancelar")
     
     @staticmethod
-    def selecionar_item_sistema_coordenada(page):
-        return page.locator(".ui-dropdown-trigger-icon")
-    
-    @staticmethod
-    def selecionar_item_datum(page):
-        return page.locator(".ng-tns-c28-12 > .ui-dropdown-trigger > .ui-dropdown-trigger-icon")
-    
-    @staticmethod
     def mensagem_de_salvo_com_sucesso(page):
         return page.get_by_text("Salvo com sucesso")
 
+    @staticmethod
+    def botao_voltar_excessao_tela(page):
+        return page.get_by_role("button", name="Voltar")
 
                                 
  # Abre a página inicial da OM02
@@ -207,9 +202,13 @@ class OM02Page:
         # aguardando em loop 1 segundo enquando o popup de loading page estiver visivel na tela
         while OM02Page.loading_page_0M02(page).is_visible():
            time.sleep(1)
+
+        # ao apresentar erro de excessão não tratada na tela esse elemento foi mapeado para clicar no botão voltar 
+        if OM02Page.botao_voltar_excessao_tela(page).is_visible() == True:
+            OM02Page.botao_voltar_excessao_tela(page).click()
         ScreenshotService.take_screenshot(page)
 
-# Validar componentes e botões da tela OM02
+    # Validar componentes e botões da tela OM02
     @staticmethod
     def validar_campos_visiveis_0M02(page):
         assert OM02Page.campo_instancia(page).is_visible() == True
@@ -496,16 +495,12 @@ class OM02Page:
         assert OM02Page.campo_id_gpvm(page).is_visible() == True
         OM02Page.campo_id_gpvm(page).click()
         OM02Page.campo_id_gpvm(page).fill("2000")
-        assert OM02Page.campo_sistema_de_coordenada.is_visible() == True
+        assert OM02Page.campo_sistema_de_coordenada(page).is_visible() == True
         OM02Page.campo_sistema_de_coordenada(page).click()
-        assert OM02Page.selecionar_item_sistema_coordenada(page).is_visible() == True
-        OM02Page.selecionar_item_sistema_coordenada(page).click()
         assert OM02Page.item_geografica(page).is_visible() == True
         OM02Page.item_geografica(page).click()
         assert OM02Page.campo_datum(page).is_visible() == True
         OM02Page.campo_datum(page).click()
-        assert OM02Page.selecionar_item_datum(page).is_visible() == True
-        OM02Page.selecionar_item_datum(page).click()
         assert OM02Page.item_SIRGAS2000_datum(page).is_visible() == True
         OM02Page.item_SIRGAS2000_datum(page).click()
         ScreenshotService.take_screenshot(page)
@@ -521,9 +516,7 @@ class OM02Page:
         OM02Page.botao_adicionar_instancia(page).click()
         while not OM02Page.campo_sistema_de_coordenada(page).is_visible():
             time.sleep(1)
-        assert OM02Page.campo_sistema_de_coordenada(page).is_visible() == True
-        assert OM02Page.selecionar_item_sistema_coordenada(page).is_visible() == True
-        OM02Page.selecionar_item_sistema_coordenada(page).click()
+        OM02Page.campo_sistema_de_coordenada(page).click()
         OM02Page.item_geografica(page).click()
         ScreenshotService.take_screenshot(page)
 
@@ -536,8 +529,6 @@ class OM02Page:
             time.sleep(1)
         assert OM02Page.campo_datum(page).is_visible() == True
         OM02Page.campo_datum(page).click()
-        assert OM02Page.selecionar_item_datum(page).is_visible() == True
-        OM02Page.selecionar_item_datum(page).click()
         assert OM02Page.item_SIRGAS2000_datum(page).is_visible() == True
         OM02Page.item_SIRGAS2000_datum(page).click()
         ScreenshotService.take_screenshot(page)
@@ -556,16 +547,12 @@ class OM02Page:
         assert OM02Page.campo_id_gpvm(page).is_visible() == True
         OM02Page.campo_id_gpvm(page).click()
         OM02Page.campo_id_gpvm(page).fill("3000")
-        assert OM02Page.campo_sistema_de_coordenada.is_visible() == True
+        assert OM02Page.campo_sistema_de_coordenada(page).is_visible() == True
         OM02Page.campo_sistema_de_coordenada(page).click()
-        assert OM02Page.selecionar_item_sistema_coordenada(page).is_visible() == True
-        OM02Page.selecionar_item_sistema_coordenada(page).click()
         assert OM02Page.item_geografica(page).is_visible() == True
         OM02Page.item_geografica(page).click()
         assert OM02Page.campo_datum(page).is_visible() == True
         OM02Page.campo_datum(page).click()
-        assert OM02Page.selecionar_item_datum(page).is_visible() == True
-        OM02Page.selecionar_item_datum(page).click()
         assert OM02Page.item_SAD69_datum(page).is_visible() == True
         OM02Page.item_SAD69_datum(page).click()
         ScreenshotService.take_screenshot(page)
@@ -582,6 +569,43 @@ class OM02Page:
 
 
 # Validar opções apresentadas ao selecionar no campo Sistema de Coordenada as opções UTM (metros) ou Carajás UTM (metros)
+    @staticmethod
+    def validar_mais_campos_apresentados_ao_selecionar_outro_sistema_coordenada(page):
+        assert OM02Page.campo_instancia(page).is_visible() == True
+        assert OM02Page.botao_adicionar_instancia(page).is_visible() == True
+        OM02Page.botao_adicionar_instancia(page).click()
+        while not OM02Page.campo_sistema_de_despacho(page).is_visible():
+            time.sleep(1)
+        ScreenshotService.take_screenshot(page)
+        assert OM02Page.campo_sistema_de_coordenada(page).is_visible() == True
+        OM02Page.campo_sistema_de_coordenada(page).click()
+        assert OM02Page.item_utm_metros(page).is_visible() == True
+        OM02Page.item_utm_metros(page).click()
+        ScreenshotService.take_screenshot(page)
+        assert OM02Page.campo_zona_UTM(page).is_visible() == True
+        assert OM02Page.campo_hemisferio(page).is_visible() == True
+        assert OM02Page.campo_offset_x(page).is_visible() == True
+        assert OM02Page.campo_offset_y(page).is_visible() == True
+
+
+# Validar botão Ação- Excluir clicando em SIM 
+    @staticmethod
+    def validar_clicar_sim_para_excluir(page):
+        assert OM02Page.campo_instancia(page).is_visible() == True
+        assert OM02Page.botao_pesquisar_0M02(page).is_visible() == True
+        OM02Page.botao_pesquisar_0M02(page).click()
+        while not OM02Page.item_MMITB_grid(page).is_visible():
+           time.sleep(1)
+        assert OM02Page.item_MMITB_grid(page).is_visible() == True
+        OM02Page.flag_clique_item_MMITB(page).click()
+        ScreenshotService.take_screenshot(page)  
+        assert OM02Page.check_box_acoes(page).is_visible() == True
+        OM02Page.check_box_acoes(page).click()
+        OM02Page.opcao_acoes_excluir(page).click()
+        ScreenshotService.take_screenshot(page)
+        assert OM02Page.modal_sim_não(page).is_visible() == True
+        OM02Page.botao_de_exclusao_sim(page).click()
+        ScreenshotService.take_screenshot(page)
 
 
 

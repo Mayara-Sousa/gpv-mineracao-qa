@@ -138,6 +138,15 @@ def test_validar_clicar_para_salvar_com_todos_os_campos_preenchidos(page: Page):
         OM02Page.page_OM02(page)
     with allure.step("Validar clicar para salvar com todos os campos preenchidos"):
         OM02Page.validar_clicar_para_salvar_com_todos_os_campos_preenchidos(page)
+        OM02Page.validar_salvo_com_sucesso(page)
+
+@pytest.mark.OM02
+def test_validar_mais_campos_apresentados_ao_selecionar_outro_sistema_coordenada(page: Page):
+    with allure.step("acessar tela OM02"):
+        OM02Page.page_OM02(page)
+    with allure.step("Validar mais campos apresentados ao selecionar outra opção no campo de Coordenada"):
+        OM02Page.validar_mais_campos_apresentados_ao_selecionar_outro_sistema_coordenada(page)
+     
 
 
 
