@@ -1,4 +1,4 @@
-# saucedemo-playwright-py
+# gpv-mineracao-qa
 
 O Tamplete utilizando Python, Pytest, Playwight e Allure para realizar testes do sistema QROM de forma simples.
 
