@@ -147,6 +147,13 @@ def test_validar_mais_campos_apresentados_ao_selecionar_outro_sistema_coordenada
     with allure.step("Validar mais campos apresentados ao selecionar outra opção no campo de Coordenada"):
         OM02Page.validar_mais_campos_apresentados_ao_selecionar_outro_sistema_coordenada(page)
      
+@staticmethod
+def test_validar_clicar_sim_para_excluir(page: Page):
+    with allure.step("acessar tela OM02"):
+        OM02Page.page_OM02(page)
+    with allure.step("Validar clicar em sim para excluir o registro"):
+        OM02Page.validar_clicar_sim_para_excluir(page)
+        OM02Page.validar_adicionar_item_MMITB(page)
 
 
 

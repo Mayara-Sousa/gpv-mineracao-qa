@@ -85,7 +85,7 @@ class OM02Page:
     
     @staticmethod
     def botao_de_exclusao_sim(page):
-        return 
+        return page.get_by_role("button", name="Sim")
     
     
     #Campos apresentados ao clicar para 'Adicionar' na tela OM02
@@ -508,7 +508,6 @@ class OM02Page:
         OM02Page.botao_cancelar(page).click()
         ScreenshotService.take_screenshot(page)
 
-
 # Validar campo Sistema de Coordenada
     @staticmethod
     def validar_campo_sistema_de_coordenada(page):
@@ -607,7 +606,30 @@ class OM02Page:
         OM02Page.botao_de_exclusao_sim(page).click()
         ScreenshotService.take_screenshot(page)
 
-
+    @staticmethod
+    def validar_adicionar_item_MMITB(page):
+        assert OM02Page.campo_instancia(page).is_visible() == True
+        assert OM02Page.botao_adicionar_instancia(page).is_visible() == True
+        OM02Page.botao_adicionar_instancia(page).click()
+        while not OM02Page.campo_sistema_de_despacho(page).is_visible():
+            time.sleep(1)
+        ScreenshotService.take_screenshot(page) 
+        OM02Page.campo_sistema_de_despacho(page).click()
+        OM02Page.campo_sistema_de_despacho(page).fill("MMITB")
+        assert OM02Page.campo_id_gpvm(page).is_visible() == True
+        OM02Page.campo_id_gpvm(page).click()
+        OM02Page.campo_id_gpvm(page).fill("95")
+        assert OM02Page.campo_sistema_de_coordenada(page).is_visible() == True
+        OM02Page.campo_sistema_de_coordenada(page).click()
+        assert OM02Page.item_geografica(page).is_visible() == True
+        OM02Page.item_geografica(page).click()
+        assert OM02Page.campo_datum(page).is_visible() == True
+        OM02Page.campo_datum(page).click()
+        assert OM02Page.item_SAD69_datum(page).is_visible() == True
+        OM02Page.item_SAD69_datum(page).click()
+        ScreenshotService.take_screenshot(page)
+        assert OM02Page.botao_salvar_ao_adicionar(page).is_visible() == True
+        OM02Page.botao_salvar_ao_adicionar(page).click()
 
          
     
