@@ -6,5 +6,6 @@ allure-pytest
 logzero
 pytest-xdist
 faker
+pyodbc
 hypothesis
 allure-python-commons
