@@ -1,13 +1,14 @@
 import pyodbc
+import os
 from pytests.support.hooks import *
 
 class SqlServeService:
 
-    def connection_sql(params):
+    def connection_sql():
         driver = '{ODBC Driver 18 for SQL Server}'
         try:
             connection = pyodbc.connect(
-            f'SERVER={server};DATABASE={database};UID={username};PWD={password};DRIVER={driver}'
+            f"SERVER={os.environ['server']};DATABASE={os.environ['database']};UID={os.environ['username_db']};PWD={os.environ['password_db']};DRIVER={driver}"
             )
 
             # Crie um cursor para executar consultas

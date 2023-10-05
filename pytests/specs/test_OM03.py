@@ -1,5 +1,6 @@
 from pytests.support.hooks import *
 from pytests.pages.OM03_page import OM03Page
+from pytests.support.sql_server_service import SqlServeService
 from playwright.sync_api import Page
 import allure
 
@@ -25,6 +26,7 @@ def test_validar_realizar_pesquisa_com_filtro_preenchido(page: Page):
         OM03Page.page_OM03(page)
     with allure.step("Validar realizar pesquisa com filtro preenchido"):
         OM03Page.validar_realizar_pesquisa_com_filtro_preenchido(page)
+        SqlServeService.connection_sql()
 
 @pytest.mark.OM03
 def test_validar_colunas_apresentadas_no_grid_ao_realizar_pesquisa(page: Page):

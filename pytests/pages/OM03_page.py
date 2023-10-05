@@ -222,9 +222,4 @@ class OM03Page:
 
 
 
-
-
-
-    assert OM02Page.campo_sistema_de_despacho(page).is_visible() == True
-    OM02Page.campo_sistema_de_despacho(page).click()
-    OM02Page.campo_sistema_de_despacho(page).fill("TESTE AUT")
+# Validar componentes e botões ao clicar em Adicionar na tela 
