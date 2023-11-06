@@ -542,10 +542,10 @@ class OM02Page:
             time.sleep(1)   
         ScreenshotService.take_screenshot(page) 
         OM02Page.campo_sistema_de_despacho(page).click()
-        OM02Page.campo_sistema_de_despacho(page).fill("TESTE AUT 3")
+        OM02Page.campo_sistema_de_despacho(page).fill("TESTE AUT 6")
         assert OM02Page.campo_id_gpvm(page).is_visible() == True
         OM02Page.campo_id_gpvm(page).click()
-        OM02Page.campo_id_gpvm(page).fill("3000")
+        OM02Page.campo_id_gpvm(page).fill("4000")
         assert OM02Page.campo_sistema_de_coordenada(page).is_visible() == True
         OM02Page.campo_sistema_de_coordenada(page).click()
         assert OM02Page.item_geografica(page).is_visible() == True
@@ -618,7 +618,7 @@ class OM02Page:
         OM02Page.campo_sistema_de_despacho(page).fill("MMITB")
         assert OM02Page.campo_id_gpvm(page).is_visible() == True
         OM02Page.campo_id_gpvm(page).click()
-        OM02Page.campo_id_gpvm(page).fill("95")
+        OM02Page.campo_id_gpvm(page).fill("98")
         assert OM02Page.campo_sistema_de_coordenada(page).is_visible() == True
         OM02Page.campo_sistema_de_coordenada(page).click()
         assert OM02Page.item_geografica(page).is_visible() == True

@@ -16,7 +16,6 @@ class OM03Page:
     def loading_page_OM03(page):
         return page.get_by_role("heading", name="Por favor aguarde. Processando...")
 
-
     @staticmethod
     def campo_unidade_operacional(page):
         return page.locator(".ui-dropdown-label-container > .ng-tns-c24-9")
@@ -95,6 +94,14 @@ class OM03Page:
         return page.get_by_role("cell", name="").locator("label")
     
     @staticmethod
+    def botao_salvar_edicao_grid(page):
+        return page.get_by_role("cell", name=" ").locator("a").first
+    
+    @staticmethod
+    def botao_cancelar_edicao_grid(page):
+        return page.get_by_role("cell", name=" ").locator("a").nth(1)
+    
+    @staticmethod
     def botao_salvar(page):
         return page.get_by_role("button", name="Salvar")
     
@@ -107,8 +114,24 @@ class OM03Page:
         return page.get_by_text("Unidade Operacional é obrigatório")
     
     @staticmethod
+    def mensagem_de_erro_campo_inicio_da_associação(page):
+        return page.get_by_text("Início da associação é obrigatório")
+    
+    @staticmethod
+    def mensagem_de_erro_bloco_obrigatório(page):
+        return page.get_by_text("Bloco é obrigatório")
+    
+    @staticmethod
     def serra_norte_unidade_operacional(page):
         return page.get_by_text("Serra Norte")
+    
+    @staticmethod
+    def equipamento_0902(page):
+        return page.get_by_role("option", name="0902")
+    
+    @staticmethod
+    def item_bloco_grid(page):
+        return page.get_by_text("595157.097000-9325037.283000-563.271000")
     
     @staticmethod
     def bota_voltar_excessao_tela(page):
@@ -132,6 +155,7 @@ class OM03Page:
         if OM03Page.bota_voltar_excessao_tela(page).is_visible() == True:
             OM03Page.bota_voltar_excessao_tela(page).click()
         ScreenshotService.take_screenshot(page)
+
 
     # casos de testes
 # Validar componentes e botões da tela OM03
@@ -167,6 +191,7 @@ class OM03Page:
         OM03Page.botao_pesquisar(page).click()
         ScreenshotService.take_screenshot(page)
         #precisa validar no banco de dados 
+
 
 # Validar colunas apresentadas no Grid após realizar a pesquisa 
     @staticmethod
@@ -212,14 +237,102 @@ class OM03Page:
 
 # Validar que campo data não permita inserir data fim menor do que data início 
     @staticmethod
-    def validar_botao_limpar_depois_da_pesquisa(page):
+    def validar_campo_data_não_permita_inserir_data_menor_que_inicio(page):
         assert OM03Page.campo_unidade_operacional(page).is_visible() == True
         OM03Page.campo_unidade_operacional(page).click()
         assert OM03Page.serra_norte_unidade_operacional(page).is_visible() == True
         OM03Page.serra_norte_unidade_operacional(page).click()
         assert OM03Page.campo_inicio_da_associacao(page).is_visible() == True
         OM03Page.campo_inicio_da_associacao(page).click()
-
-
+        OM03Page.campo_inicio_da_associacao(page).fill("01/10/2023")
+        assert OM03Page.campo_fim_da_associacao(page).is_visible() == True
+        OM03Page.campo_fim_da_associacao(page).fill("01/09/2023")
+        ScreenshotService.take_screenshot(page)
 
 # Validar componentes e botões ao clicar em Adicionar na tela 
+    @staticmethod
+    def validar_componentes_e_botoes_ao_clicar_em_adicionar(page):
+        assert OM03Page.botao_adicionar(page).is_visible() == True
+        OM03Page.botao_adicionar(page).click()
+        assert OM03Page.campo_unidade_op_adicionar(page).is_visible() == True
+        assert OM03Page.campo_equipamento_adicionar(page).is_visible() == True
+        ScreenshotService.take_screenshot(page)
+
+# Validar campo equipamento sendo habilitado após selecionar uma Unidade Operacional 
+    @staticmethod
+    def validar_campo_equipamento_habilitado(page):
+        assert OM03Page.botao_adicionar(page).is_visible() == True
+        OM03Page.botao_adicionar(page).click()
+        assert OM03Page.campo_unidade_op_adicionar(page).is_visible() == True
+        assert OM03Page.serra_norte_unidade_operacional(page).is_visible() == True
+        OM03Page.serra_norte_unidade_operacional(page).click()
+        assert OM03Page.campo_equipamento_adicionar(page).is_visible() == True
+        OM03Page.campo_equipamento_adicionar(page).click()
+        ScreenshotService.take_screenshot(page)
+
+# Validar segundo botão Adicionar 
+    @staticmethod
+    def validar_segundo_botao_adicionar(page):
+        assert OM03Page.botao_adicionar(page).is_visible() == True
+        OM03Page.botao_adicionar(page).click()
+        assert OM03Page.campo_unidade_op_adicionar(page).is_visible() == True
+        assert OM03Page.serra_norte_unidade_operacional(page).is_visible() == True
+        OM03Page.serra_norte_unidade_operacional(page).click()
+        assert OM03Page.campo_equipamento_adicionar(page).is_visible() == True
+        OM03Page.campo_equipamento_adicionar(page).click()
+        OM03Page.equipamento_0902(page).click()
+        assert OM03Page.botao_adicionar(page).is_visible() == True
+        OM03Page.botao_adicionar(page).click()
+        assert OM03Page.linha_coluna_inicio_da_associacao(page).is_visible() == True
+        assert OM03Page.linha_coluna_fim_da_associacao(page).is_visible() == True
+        assert OM03Page.linha_coluna_bloco(page).is_visible() == True
+        ScreenshotService.take_screenshot(page)
+
+# Validar clicar em confirmar dentro da linha do Grid sem inserir informações 
+    @staticmethod
+    def validar_clicar_confirmar_no_grid_sem_inserir_informações(page):
+        assert OM03Page.botao_adicionar(page).is_visible() == True
+        OM03Page.botao_adicionar(page).click()
+        assert OM03Page.campo_unidade_op_adicionar(page).is_visible() == True
+        assert OM03Page.serra_norte_unidade_operacional(page).is_visible() == True
+        OM03Page.serra_norte_unidade_operacional(page).click()
+        assert OM03Page.campo_equipamento_adicionar(page).is_visible() == True
+        OM03Page.campo_equipamento_adicionar(page).click()
+        OM03Page.equipamento_0902(page).click()
+        assert OM03Page.botao_adicionar(page).is_visible() == True
+        OM03Page.botao_adicionar(page).click()
+        assert OM03Page.linha_coluna_inicio_da_associacao(page).is_visible() == True
+        assert OM03Page.linha_coluna_fim_da_associacao(page).is_visible() == True
+        assert OM03Page.linha_coluna_bloco(page).is_visible() == True
+        assert OM03Page.botao_salvar_edicao_grid(page).is_visible() == True
+        OM03Page.botao_salvar_edicao_grid(page).click()
+        assert OM03Page.mensagem_de_erro_campo_inicio_da_associação(page).is_visible() == True
+        assert OM03Page.mensagem_de_erro_bloco_obrigatório(page).is_visible() == True
+        ScreenshotService.take_screenshot(page)
+
+# Validar clicar em confirmar dentro da linha do Grid inserindo informações
+    @staticmethod
+    def validar_clicar_confirmar_no_grid_com_informações(page):
+        assert OM03Page.botao_adicionar(page).is_visible() == True
+        OM03Page.botao_adicionar(page).click()
+        assert OM03Page.campo_unidade_op_adicionar(page).is_visible() == True
+        assert OM03Page.serra_norte_unidade_operacional(page).is_visible() == True
+        OM03Page.serra_norte_unidade_operacional(page).click()
+        assert OM03Page.campo_equipamento_adicionar(page).is_visible() == True
+        OM03Page.campo_equipamento_adicionar(page).click()
+        OM03Page.equipamento_0902(page).click()
+        assert OM03Page.botao_adicionar(page).is_visible() == True
+        OM03Page.botao_adicionar(page).click()
+        assert OM03Page.linha_coluna_inicio_da_associacao(page).is_visible() == True
+        OM03Page.linha_coluna_inicio_da_associacao(page).click()
+        OM03Page.linha_coluna_inicio_da_associacao(page).fill("01/11/2023")
+        assert OM03Page.linha_coluna_fim_da_associacao(page).is_visible() == True
+        OM03Page.linha_coluna_fim_da_associacao(page).click()
+        OM03Page.linha_coluna_fim_da_associacao(page).fill("01/12/2023")
+        assert OM03Page.linha_coluna_bloco(page).is_visible() == True 
+        OM03Page.linha_coluna_bloco(page).click() 
+        assert OM03Page.item_bloco_grid(page).is_visible() == True 
+        OM03Page.item_bloco_grid(page).click()
+        ScreenshotService.take_screenshot(page)
+
+
