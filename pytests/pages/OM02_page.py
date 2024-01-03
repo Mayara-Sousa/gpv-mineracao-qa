@@ -260,9 +260,9 @@ class OM02Page:
     def validar_limpar_filtro_depois_pesquisa(page):
         assert OM02Page.campo_instancia(page).is_visible() == True
         OM02Page.campo_instancia(page).click()
-        OM02Page.campo_instancia(page).fill("MMI")
+        OM02Page.campo_instancia(page).fill("MM")
         OM02Page.botao_pesquisar_0M02(page).click()
-        while not OM02Page.item_MMITB_grid(page).is_visible():
+        while not OM02Page.item_MMCKS_grid(page).is_visible():
             time.sleep(1)
         ScreenshotService.take_screenshot(page)
         assert OM02Page.botao_limpar_pesquisa_OM02(page).is_visible() == True

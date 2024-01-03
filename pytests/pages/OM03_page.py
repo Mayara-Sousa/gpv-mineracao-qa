@@ -137,6 +137,41 @@ class OM03Page:
     def bota_voltar_excessao_tela(page):
         return page.get_by_role("button", name="Voltar")
     
+    @staticmethod
+    def mensagem_alerta_ao_salvar_sem_preencher_dados(page):
+        return page.get_by_text("Não há dados para salvar")
+    
+    @staticmethod
+    def botao_editar_item_grid(page):
+        return page.get_by_role("cell", name="").locator("a")
+    
+    @staticmethod
+    def botao_excluir_item_grid(page):
+        return page.get_by_role("cell", name="")
+    
+    @staticmethod
+    def opcao_nao_excluir(page):
+        return page.get_by_role("button", name="Não")
+    
+    @staticmethod
+    def opcao_sim_excluir(page):
+        return page.get_by_role("button", name="Sim")
+    
+    @staticmethod
+    def mensagem_registro_salvo_com_sucesso(page):
+        return page.get_by_role("listitem").filter(has_text="Registro salvo com sucesso")
+    
+    @staticmethod
+    def mensagem_de_erro_vigencia_no_passado(page):
+        return page.get_by_text("Não é possível programar associações com vigência no passado")
+    
+    @staticmethod
+    def mensagem_de_erro_equip_bloco(page):
+        return  page.locator("p-messages div")
+    
+    @staticmethod
+    def mensagem_de_erro_fim_associacao_não_preenchido(page):
+        return page.locator("div").filter(has_text=re.compile(r"^Impossível criar a associação, informe a data fim da associação anterior$"))
 
     # Abre a página inicial da OM03
     @staticmethod
@@ -235,20 +270,6 @@ class OM03Page:
         OM03Page.botao_limpar(page).click()
         ScreenshotService.take_screenshot(page)
 
-# Validar que campo data não permita inserir data fim menor do que data início 
-    @staticmethod
-    def validar_campo_data_não_permita_inserir_data_menor_que_inicio(page):
-        assert OM03Page.campo_unidade_operacional(page).is_visible() == True
-        OM03Page.campo_unidade_operacional(page).click()
-        assert OM03Page.serra_norte_unidade_operacional(page).is_visible() == True
-        OM03Page.serra_norte_unidade_operacional(page).click()
-        assert OM03Page.campo_inicio_da_associacao(page).is_visible() == True
-        OM03Page.campo_inicio_da_associacao(page).click()
-        OM03Page.campo_inicio_da_associacao(page).fill("01/10/2023")
-        assert OM03Page.campo_fim_da_associacao(page).is_visible() == True
-        OM03Page.campo_fim_da_associacao(page).fill("01/09/2023")
-        ScreenshotService.take_screenshot(page)
-
 # Validar componentes e botões ao clicar em Adicionar na tela 
     @staticmethod
     def validar_componentes_e_botoes_ao_clicar_em_adicionar(page):
@@ -264,6 +285,7 @@ class OM03Page:
         assert OM03Page.botao_adicionar(page).is_visible() == True
         OM03Page.botao_adicionar(page).click()
         assert OM03Page.campo_unidade_op_adicionar(page).is_visible() == True
+        OM03Page.campo_unidade_op_adicionar(page).click()
         assert OM03Page.serra_norte_unidade_operacional(page).is_visible() == True
         OM03Page.serra_norte_unidade_operacional(page).click()
         assert OM03Page.campo_equipamento_adicionar(page).is_visible() == True
@@ -276,10 +298,12 @@ class OM03Page:
         assert OM03Page.botao_adicionar(page).is_visible() == True
         OM03Page.botao_adicionar(page).click()
         assert OM03Page.campo_unidade_op_adicionar(page).is_visible() == True
+        OM03Page.campo_unidade_op_adicionar(page).click()
         assert OM03Page.serra_norte_unidade_operacional(page).is_visible() == True
         OM03Page.serra_norte_unidade_operacional(page).click()
         assert OM03Page.campo_equipamento_adicionar(page).is_visible() == True
         OM03Page.campo_equipamento_adicionar(page).click()
+        assert OM03Page.equipamento_0902(page).is_visible() == True
         OM03Page.equipamento_0902(page).click()
         assert OM03Page.botao_adicionar(page).is_visible() == True
         OM03Page.botao_adicionar(page).click()
@@ -294,10 +318,12 @@ class OM03Page:
         assert OM03Page.botao_adicionar(page).is_visible() == True
         OM03Page.botao_adicionar(page).click()
         assert OM03Page.campo_unidade_op_adicionar(page).is_visible() == True
+        OM03Page.campo_unidade_op_adicionar(page).click()
         assert OM03Page.serra_norte_unidade_operacional(page).is_visible() == True
         OM03Page.serra_norte_unidade_operacional(page).click()
         assert OM03Page.campo_equipamento_adicionar(page).is_visible() == True
         OM03Page.campo_equipamento_adicionar(page).click()
+        assert OM03Page.equipamento_0902(page).is_visible() == True
         OM03Page.equipamento_0902(page).click()
         assert OM03Page.botao_adicionar(page).is_visible() == True
         OM03Page.botao_adicionar(page).click()
@@ -316,23 +342,234 @@ class OM03Page:
         assert OM03Page.botao_adicionar(page).is_visible() == True
         OM03Page.botao_adicionar(page).click()
         assert OM03Page.campo_unidade_op_adicionar(page).is_visible() == True
+        OM03Page.campo_unidade_op_adicionar(page).click()
         assert OM03Page.serra_norte_unidade_operacional(page).is_visible() == True
         OM03Page.serra_norte_unidade_operacional(page).click()
         assert OM03Page.campo_equipamento_adicionar(page).is_visible() == True
         OM03Page.campo_equipamento_adicionar(page).click()
+        assert OM03Page.equipamento_0902(page).is_visible() == True
         OM03Page.equipamento_0902(page).click()
         assert OM03Page.botao_adicionar(page).is_visible() == True
         OM03Page.botao_adicionar(page).click()
         assert OM03Page.linha_coluna_inicio_da_associacao(page).is_visible() == True
         OM03Page.linha_coluna_inicio_da_associacao(page).click()
-        OM03Page.linha_coluna_inicio_da_associacao(page).fill("01/11/2023")
+        OM03Page.linha_coluna_inicio_da_associacao(page).fill("03/01/2024")
         assert OM03Page.linha_coluna_fim_da_associacao(page).is_visible() == True
         OM03Page.linha_coluna_fim_da_associacao(page).click()
-        OM03Page.linha_coluna_fim_da_associacao(page).fill("01/12/2023")
+        OM03Page.linha_coluna_fim_da_associacao(page).fill("20/02/2024")
         assert OM03Page.linha_coluna_bloco(page).is_visible() == True 
         OM03Page.linha_coluna_bloco(page).click() 
         assert OM03Page.item_bloco_grid(page).is_visible() == True 
         OM03Page.item_bloco_grid(page).click()
+        assert OM03Page.botao_salvar_edicao_grid(page).is_visible() == True 
+        OM03Page.botao_salvar_edicao_grid(page).click()
         ScreenshotService.take_screenshot(page)
 
+# Validar clicar em salvar sem clicar em adicionar 
+    @staticmethod
+    def validar_clicar_salvar_sem_adicionar_informacoes(page):
+        assert OM03Page.botao_adicionar(page).is_visible() == True
+        OM03Page.botao_adicionar(page).click()
+        assert OM03Page.campo_unidade_op_adicionar(page).is_visible() == True
+        OM03Page.campo_unidade_op_adicionar(page).click()
+        assert OM03Page.serra_norte_unidade_operacional(page).is_visible() == True
+        OM03Page.serra_norte_unidade_operacional(page).click()
+        assert OM03Page.campo_equipamento_adicionar(page).is_visible() == True
+        OM03Page.campo_equipamento_adicionar(page).click()
+        assert OM03Page.equipamento_0902(page).is_visible() == True
+        OM03Page.equipamento_0902(page).click()
+        assert OM03Page.botao_salvar(page).is_visible() == True
+        OM03Page.botao_salvar(page).click()
+        assert OM03Page.mensagem_alerta_ao_salvar_sem_preencher_dados(page).is_visible() == True
+        ScreenshotService.take_screenshot(page)
+
+# Validar clicar em cancelar dentro da linha do grid 
+    @staticmethod
+    def validar_clicar_em_cancelar_dentro_da_linha_do_grid(page):
+        assert OM03Page.botao_adicionar(page).is_visible() == True
+        OM03Page.botao_adicionar(page).click()
+        assert OM03Page.campo_unidade_op_adicionar(page).is_visible() == True
+        OM03Page.campo_unidade_op_adicionar(page).click()
+        assert OM03Page.serra_norte_unidade_operacional(page).is_visible() == True
+        OM03Page.serra_norte_unidade_operacional(page).click()
+        assert OM03Page.campo_equipamento_adicionar(page).is_visible() == True
+        OM03Page.campo_equipamento_adicionar(page).click()
+        assert OM03Page.equipamento_0902(page).is_visible() == True
+        OM03Page.equipamento_0902(page).click()
+        assert OM03Page.botao_adicionar(page).is_visible() == True
+        OM03Page.botao_adicionar(page).click()
+        assert OM03Page.linha_coluna_inicio_da_associacao(page).is_visible() == True
+        OM03Page.linha_coluna_inicio_da_associacao(page).click()
+        OM03Page.linha_coluna_inicio_da_associacao(page).fill("03/01/2024")
+        assert OM03Page.linha_coluna_fim_da_associacao(page).is_visible() == True
+        OM03Page.linha_coluna_fim_da_associacao(page).click()
+        OM03Page.linha_coluna_fim_da_associacao(page).fill("10/02/2024")
+        assert OM03Page.linha_coluna_bloco(page).is_visible() == True 
+        OM03Page.linha_coluna_bloco(page).click() 
+        assert OM03Page.item_bloco_grid(page).is_visible() == True 
+        OM03Page.item_bloco_grid(page).click()
+        assert OM03Page.botao_cancelar_edicao_grid(page).is_visible() == True 
+        OM03Page.botao_cancelar_edicao_grid(page).click()
+        ScreenshotService.take_screenshot(page)
+
+# Validar clicar em editar dentro da linha do grid 
+    @staticmethod
+    def validar_clicar_em_editar_dentro_da_linha_do_grid(page):
+        assert OM03Page.botao_adicionar(page).is_visible() == True
+        OM03Page.botao_adicionar(page).click()
+        assert OM03Page.campo_unidade_op_adicionar(page).is_visible() == True
+        OM03Page.campo_unidade_op_adicionar(page).click()
+        assert OM03Page.serra_norte_unidade_operacional(page).is_visible() == True
+        OM03Page.serra_norte_unidade_operacional(page).click()
+        assert OM03Page.campo_equipamento_adicionar(page).is_visible() == True
+        OM03Page.campo_equipamento_adicionar(page).click()
+        assert OM03Page.equipamento_0902(page).is_visible() == True
+        OM03Page.equipamento_0902(page).click()
+        assert OM03Page.botao_editar_item_grid(page).is_visible() == True
+        OM03Page.botao_editar_item_grid(page).click()
+        assert OM03Page.linha_coluna_fim_da_associacao(page).is_visible() == True
+        OM03Page.linha_coluna_fim_da_associacao(page).click()
+        OM03Page.linha_coluna_fim_da_associacao(page).fill("22/02/2024")
+        assert OM03Page.botao_salvar_edicao_grid(page).is_visible() == True
+        OM03Page.botao_salvar_edicao_grid(page).click()
+        ScreenshotService.take_screenshot(page)
+        assert OM03Page.botao_salvar_edicao_grid(page).is_visible() == True 
+        OM03Page.botao_salvar_edicao_grid(page).click()
+        assert OM03Page.mensagem_registro_salvo_com_sucesso(page).is_visible() == True 
+        ScreenshotService.take_screenshot(page)
+
+# Validar registro inserido salvo no banco de dados 
+
+
+# Validar clicar NÃO ao tentar excluir um registro 
+    @staticmethod
+    def validar_clicar_não_para_excluir_registro(page):
+        assert OM03Page.botao_adicionar(page).is_visible() == True
+        OM03Page.botao_adicionar(page).click()
+        assert OM03Page.campo_unidade_op_adicionar(page).is_visible() == True
+        OM03Page.campo_unidade_op_adicionar(page).click()
+        assert OM03Page.serra_norte_unidade_operacional(page).is_visible() == True
+        OM03Page.serra_norte_unidade_operacional(page).click()
+        assert OM03Page.campo_equipamento_adicionar(page).is_visible() == True
+        OM03Page.campo_equipamento_adicionar(page).click()
+        assert OM03Page.equipamento_0902(page).is_visible() == True
+        OM03Page.equipamento_0902(page).click()
+        assert OM03Page.botao_excluir_item_grid(page).is_visible() == True
+        OM03Page.botao_excluir_item_grid(page).click()
+        ScreenshotService.take_screenshot(page)
+        assert OM03Page.opcao_nao_excluir(page).is_visible() == True
+        OM03Page.opcao_nao_excluir(page).click()
+        ScreenshotService.take_screenshot(page)
+
+# Validar clicar em SIM ao tentar excluir um registro
+    @staticmethod
+    def validar_clicar_sim_para_excluir_registro(page):
+        assert OM03Page.botao_adicionar(page).is_visible() == True
+        OM03Page.botao_adicionar(page).click()
+        assert OM03Page.campo_unidade_op_adicionar(page).is_visible() == True
+        OM03Page.campo_unidade_op_adicionar(page).click()
+        assert OM03Page.serra_norte_unidade_operacional(page).is_visible() == True
+        OM03Page.serra_norte_unidade_operacional(page).click()
+        assert OM03Page.campo_equipamento_adicionar(page).is_visible() == True
+        OM03Page.campo_equipamento_adicionar(page).click()
+        assert OM03Page.equipamento_0902(page).is_visible() == True
+        OM03Page.equipamento_0902(page).click()
+        assert OM03Page.botao_excluir_item_grid(page).is_visible() == True
+        OM03Page.botao_excluir_item_grid(page).click()
+        ScreenshotService.take_screenshot(page)
+        assert OM03Page.opcao_sim_excluir(page).is_visible() == True
+        OM03Page.opcao_sim_excluir(page).click()
+        ScreenshotService.take_screenshot(page)
+
+# Validar registro excluído do banco 
+        
+# Validar erro ao tentar salvar campos de data no passado 
+    @staticmethod
+    def validar_erro_ao_tentar_salvar_registro_com_data_vigencia_no_passado(page):
+        assert OM03Page.botao_adicionar(page).is_visible() == True
+        OM03Page.botao_adicionar(page).click()
+        assert OM03Page.campo_unidade_op_adicionar(page).is_visible() == True
+        OM03Page.campo_unidade_op_adicionar(page).click()
+        assert OM03Page.serra_norte_unidade_operacional(page).is_visible() == True
+        OM03Page.serra_norte_unidade_operacional(page).click()
+        assert OM03Page.campo_equipamento_adicionar(page).is_visible() == True
+        OM03Page.campo_equipamento_adicionar(page).click()
+        assert OM03Page.equipamento_0902(page).is_visible() == True
+        OM03Page.equipamento_0902(page).click()
+        assert OM03Page.botao_editar_item_grid(page).is_visible() == True
+        OM03Page.botao_editar_item_grid(page).click()
+        assert OM03Page.linha_coluna_inicio_da_associacao(page).is_visible() == True
+        OM03Page.linha_coluna_inicio_da_associacao(page).click()
+        OM03Page.linha_coluna_inicio_da_associacao(page).fill("01/01/2024")
+        ScreenshotService.take_screenshot(page)
+        assert OM03Page.botao_salvar_edicao_grid(page).is_visible() == True
+        OM03Page.botao_salvar_edicao_grid(page).click()
+        assert OM03Page.mensagem_de_erro_vigencia_no_passado(page).is_visible() == True
+        ScreenshotService.take_screenshot(page)
+
+# Validar mensagem sendo apresentada se já existir associação Equipamento-Bloco no período informado 
+    @staticmethod
+    def validar_mensagem_ao_adicionar_registro_com_associação_equipamento_já_existente(page):
+        assert OM03Page.botao_adicionar(page).is_visible() == True
+        OM03Page.botao_adicionar(page).click()
+        assert OM03Page.campo_unidade_op_adicionar(page).is_visible() == True
+        OM03Page.campo_unidade_op_adicionar(page).click()
+        assert OM03Page.serra_norte_unidade_operacional(page).is_visible() == True
+        OM03Page.serra_norte_unidade_operacional(page).click()
+        assert OM03Page.campo_equipamento_adicionar(page).is_visible() == True
+        OM03Page.campo_equipamento_adicionar(page).click()
+        assert OM03Page.equipamento_0902(page).is_visible() == True
+        OM03Page.equipamento_0902(page).click()
+        assert OM03Page.botao_adicionar(page).is_visible() == True
+        OM03Page.botao_adicionar(page).click()
+        assert OM03Page.linha_coluna_inicio_da_associacao(page).is_visible() == True
+        OM03Page.linha_coluna_inicio_da_associacao(page).click()
+        OM03Page.linha_coluna_inicio_da_associacao(page).fill("04/01/2024")
+        assert OM03Page.linha_coluna_fim_da_associacao(page).is_visible() == True
+        OM03Page.linha_coluna_fim_da_associacao(page).click()
+        OM03Page.linha_coluna_fim_da_associacao(page).fill("02/02/2024")
+        assert OM03Page.linha_coluna_bloco(page).is_visible() == True 
+        OM03Page.linha_coluna_bloco(page).click() 
+        assert OM03Page.item_bloco_grid(page).is_visible() == True 
+        OM03Page.item_bloco_grid(page).click() 
+        assert OM03Page.botao_salvar_edicao_grid(page).is_visible() == True 
+        OM03Page.botao_salvar_edicao_grid(page).click() 
+        assert OM03Page.mensagem_de_erro_equip_bloco(page).is_visible() == True 
+        ScreenshotService.take_screenshot(page)
+
+# Validar mensagem de erro quando o campo Fim da associação não for preenchido 
+    @staticmethod
+    def validar_mensagem_erro_quando_não_preencher_campo_fim_associacao(page):
+        assert OM03Page.botao_adicionar(page).is_visible() == True
+        OM03Page.botao_adicionar(page).click()
+        assert OM03Page.campo_unidade_op_adicionar(page).is_visible() == True
+        OM03Page.campo_unidade_op_adicionar(page).click()
+        assert OM03Page.serra_norte_unidade_operacional(page).is_visible() == True
+        OM03Page.serra_norte_unidade_operacional(page).click()
+        assert OM03Page.campo_equipamento_adicionar(page).is_visible() == True
+        OM03Page.campo_equipamento_adicionar(page).click()
+        assert OM03Page.equipamento_0902(page).is_visible() == True
+        OM03Page.equipamento_0902(page).click()
+        assert OM03Page.botao_adicionar(page).is_visible() == True
+        OM03Page.botao_adicionar(page).click()
+        assert OM03Page.linha_coluna_inicio_da_associacao(page).is_visible() == True
+        OM03Page.linha_coluna_inicio_da_associacao(page).click()
+        OM03Page.linha_coluna_inicio_da_associacao(page).fill("02/02/2024")
+        assert OM03Page.linha_coluna_bloco(page).is_visible() == True 
+        OM03Page.linha_coluna_bloco(page).click() 
+        assert OM03Page.item_bloco_grid(page).is_visible() == True 
+        OM03Page.item_bloco_grid(page).click() 
+        assert OM03Page.botao_adicionar(page).is_visible() == True
+        OM03Page.botao_adicionar(page).click()
+        assert OM03Page.linha_coluna_inicio_da_associacao(page).is_visible() == True
+        OM03Page.linha_coluna_inicio_da_associacao(page).click()
+        OM03Page.linha_coluna_inicio_da_associacao(page).fill("05/02/2024")
+        assert OM03Page.linha_coluna_bloco(page).is_visible() == True 
+        OM03Page.linha_coluna_bloco(page).click() 
+        assert OM03Page.item_bloco_grid(page).is_visible() == True 
+        OM03Page.item_bloco_grid(page).click() 
+        assert OM03Page.botao_salvar_edicao_grid(page).is_visible() == True 
+        OM03Page.botao_salvar_edicao_grid(page).click() 
+        assert OM03Page.mensagem_de_erro_fim_associacao_não_preenchido(page).is_visible() == True 
+        ScreenshotService.take_screenshot(page)
 

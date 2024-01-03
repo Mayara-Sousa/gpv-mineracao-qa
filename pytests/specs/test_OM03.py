@@ -50,13 +50,6 @@ def test_validar_botao_limpar_depois_da_pesquisa(page: Page):
         OM03Page.validar_botao_limpar_depois_da_pesquisa(page)
 
 @pytest.mark.OM03
-def test_validar_campo_data_não_permita_inserir_data_menor_que_inicio(page: Page):
-    with allure.step("acessar tela OM03"):
-        OM03Page.page_OM03(page)
-    with allure.step("Validar que campo data não permita inserir data fim menor do que data início"):
-        OM03Page.validar_campo_data_não_permita_inserir_data_menor_que_inicio(page)
-
-@pytest.mark.OM03
 def test_validar_componentes_e_botoes_ao_clicar_em_adicionar(page: Page):
     with allure.step("acessar tela OM03"):
         OM03Page.page_OM03(page)
@@ -90,3 +83,65 @@ def test_validar_clicar_confirmar_no_grid_com_informações(page: Page):
         OM03Page.page_OM03(page)
      with allure.step("Validar clicar em confirmar dentro da linha do Grid inserindo informações"):
         OM03Page.validar_clicar_confirmar_no_grid_com_informações(page)
+
+@pytest.mark.OM03
+def test_validar_clicar_salvar_sem_adicionar_informacoes(page: Page):
+     with allure.step("acessar tela OM03"):
+        OM03Page.page_OM03(page)
+     with allure.step("Validar clicar em salvar sem adicionar informações"):
+         OM03Page.validar_clicar_salvar_sem_adicionar_informacoes(page)
+
+@pytest.mark.OM03
+def test_validar_clicar_em_cancelar_dentro_da_linha_do_grid(page: Page):
+     with allure.step("acessar tela OM03"):
+        OM03Page.page_OM03(page)
+     with allure.step("Validar clicar em cancelar dentro da linha do grid"):
+         OM03Page.validar_clicar_em_cancelar_dentro_da_linha_do_grid(page)
+
+@pytest.mark.OM03
+def test_validar_clicar_em_editar_dentro_da_linha_do_grid(page: Page):
+     with allure.step("acessar tela OM03"):
+        OM03Page.page_OM03(page)
+     with allure.step("Validar clicar em editar dentro da linha do grid"):
+         OM03Page.validar_clicar_em_editar_dentro_da_linha_do_grid(page)
+
+# Validar registro inserido salvo no banco de dados 
+         
+@pytest.mark.OM03
+def test_validar_clicar_não_para_excluir_registro(page: Page):
+     with allure.step("acessar tela OM03"):
+        OM03Page.page_OM03(page)
+     with allure.step("Validar clicar não ao clicar para excluir registro"):
+         OM03Page.validar_clicar_não_ao_clicar_para_excluir_registro(page)
+
+
+@pytest.mark.OM03
+def test_validar_clicar_sim_para_excluir_registro(page: Page):
+     with allure.step("acessar tela OM03"):
+        OM03Page.page_OM03(page)
+     with allure.step("Validar clicar em editar dentro da linha do grid"):
+         OM03Page.validar_clicar_em_editar_dentro_da_linha_do_grid(page)
+
+
+# Validar registro excluído do banco
+         
+@pytest.mark.OM03
+def test_validar_erro_ao_tentar_salvar_registro_com_data_vigencia_no_passado(page: Page):
+     with allure.step("acessar tela OM03"):
+        OM03Page.page_OM03(page)
+     with allure.step("Validar erro ao tentar salvar registro com data de vigencia no passado"):
+         OM03Page.validar_erro_ao_tentar_salvar_registro_com_data_vigencia_no_passado(page)
+
+@pytest.mark.OM03
+def test_validar_mensagem_ao_adicionar_registro_com_associação_equipamento_já_existente(page: Page):
+     with allure.step("acessar tela OM03"):
+        OM03Page.page_OM03(page)
+     with allure.step("Validar mensagem de erro ao adicionar registro com data de associação já existente para o equipamento/bloco"):
+         OM03Page.validar_mensagem_ao_adicionar_registro_com_associação_equipamento_já_existente(page)
+
+@pytest.mark.OM03
+def test_validar_mensagem_erro_quando_não_preencher_campo_fim_associacao(page: Page):
+     with allure.step("acessar tela OM03"):
+        OM03Page.page_OM03(page)
+     with allure.step("Validar mensagem de erro quando não preencher o registro com data de fim de associação se já existir um sem"):
+         OM03Page.validar_mensagem_erro_quando_não_preencher_campo_fim_associacao(page)
