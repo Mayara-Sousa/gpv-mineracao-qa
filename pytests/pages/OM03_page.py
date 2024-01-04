@@ -18,19 +18,19 @@ class OM03Page:
 
     @staticmethod
     def campo_unidade_operacional(page):
-        return page.locator(".ui-dropdown-label-container > .ng-tns-c24-9")
+        return page.get_by_text("Unidade Operacional*:")
     
     @staticmethod
     def campo_equipamento(page):
-        return page.locator(".ui-dropdown-label-container > .ng-tns-c24-10")
+        return page.get_by_text("Equipamento:")
     
     @staticmethod
     def campo_inicio_da_associacao(page):
-        return page.locator("div").filter(has_text=re.compile(r"^Início da associação:ui-btnui-btn$")).get_by_role("textbox")
+        return page.get_by_text("Início da associação:")
     
     @staticmethod
     def campo_fim_da_associacao(page):
-        return page.locator("div").filter(has_text=re.compile(r"^Fim da associação:ui-btnui-btn$")).get_by_role("textbox")
+        return page.get_by_text("Fim da associação:")
     
     @staticmethod
     def botao_pesquisar(page):

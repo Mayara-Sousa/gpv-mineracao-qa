@@ -114,7 +114,6 @@ def test_validar_clicar_não_para_excluir_registro(page: Page):
      with allure.step("Validar clicar não ao clicar para excluir registro"):
          OM03Page.validar_clicar_não_ao_clicar_para_excluir_registro(page)
 
-
 @pytest.mark.OM03
 def test_validar_clicar_sim_para_excluir_registro(page: Page):
      with allure.step("acessar tela OM03"):
