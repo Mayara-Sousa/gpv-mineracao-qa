@@ -183,7 +183,7 @@ class OM02Page:
     
     @staticmethod
     def mensagem_de_salvo_com_sucesso(page):
-        return page.get_by_text("Salvo com sucesso")
+        return page.locator("div").filter(has_text=re.compile(r"^Salvo com sucesso$"))
 
     @staticmethod
     def botao_voltar_excessao_tela(page):
@@ -542,10 +542,10 @@ class OM02Page:
             time.sleep(1)   
         ScreenshotService.take_screenshot(page) 
         OM02Page.campo_sistema_de_despacho(page).click()
-        OM02Page.campo_sistema_de_despacho(page).fill("TESTE AUT 6")
+        OM02Page.campo_sistema_de_despacho(page).fill("TESTE AUT 8")
         assert OM02Page.campo_id_gpvm(page).is_visible() == True
         OM02Page.campo_id_gpvm(page).click()
-        OM02Page.campo_id_gpvm(page).fill("4000")
+        OM02Page.campo_id_gpvm(page).fill("6000")
         assert OM02Page.campo_sistema_de_coordenada(page).is_visible() == True
         OM02Page.campo_sistema_de_coordenada(page).click()
         assert OM02Page.item_geografica(page).is_visible() == True
@@ -563,8 +563,8 @@ class OM02Page:
         while not OM02Page.mensagem_de_salvo_com_sucesso(page).is_visible():
             time.sleep(1)
         ScreenshotService.take_screenshot(page)
-        assert OM02Page.mensagem_de_salvo_com_sucesso(page).text_content() == "Salvo com sucesso"
-        ScreenshotService.take_screenshot(page)
+
+      
 
 
 # Validar opções apresentadas ao selecionar no campo Sistema de Coordenada as opções UTM (metros) ou Carajás UTM (metros)

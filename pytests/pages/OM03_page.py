@@ -134,7 +134,7 @@ class OM03Page:
         return page.get_by_text("595157.097000-9325037.283000-563.271000")
     
     @staticmethod
-    def bota_voltar_excessao_tela(page):
+    def botao_voltar_excessao_tela(page):
         return page.get_by_role("button", name="Voltar")
     
     @staticmethod
@@ -187,8 +187,8 @@ class OM03Page:
            time.sleep(1)
 
         # ao apresentar erro de excessão não tratada na tela esse elemento foi mapeado para clicar no botão voltar 
-        if OM03Page.bota_voltar_excessao_tela(page).is_visible() == True:
-            OM03Page.bota_voltar_excessao_tela(page).click()
+        if OM03Page.botao_voltar_excessao_tela(page).is_visible() == True:
+            OM03Page.botao_voltar_excessao_tela(page).click()
         ScreenshotService.take_screenshot(page)
 
 
