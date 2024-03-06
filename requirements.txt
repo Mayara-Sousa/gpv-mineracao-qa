@@ -1,0 +1,11 @@
+pytest
+playwright
+pytest-playwright
+python-dotenv
+allure-pytest
+logzero
+pytest-xdist
+faker
+pyodbc
+hypothesis
+allure-python-commons
